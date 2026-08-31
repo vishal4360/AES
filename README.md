@@ -9,47 +9,36 @@ It has a fixed block size of 128 bits, and a key size of 128, 192, or 256 bits.
 AES operates on a 4 × 4 column-major order array of bytes, termed the state
 # PROGRAM:
 ```
-def simple_aes_encrypt(plaintext, key):
-    ciphertext = []
-    klen = len(key)
+#include <stdio.h>
+#include <string.h>
 
-    for i in range(len(plaintext)):
-        ciphertext.append(ord(plaintext[i]) ^ ord(key[i % klen]))
+void xor_encrypt_decrypt(char *input, char *key) {
+    int input_len = strlen(input);
+    int key_len = strlen(key);
+    for (int i = 0; i < input_len; i++) {
+        input[i] = input[i] ^ key[i % key_len];
+    }
+}
 
-    return ciphertext
-def simple_aes_decrypt(ciphertext, key):
-    decrypted_text = ""
-    klen = len(key)
+int main() {
+    char url[] = "ANISHA";
+    char key[] = "secretkey";
+    
+    printf("Original text: %s\n", url);
+    xor_encrypt_decrypt(url, key);
+    printf("Encrypted text: %s\n", url);
+    xor_encrypt_decrypt(url, key);
+    printf("Decrypted text: %s\n", url);
 
-    for i in range(len(ciphertext)):
-        decrypted_text += chr(ciphertext[i] ^ ord(key[i % klen]))
+    return 0;
+}
 
-    return decrypted_text
-def print_ascii(ciphertext):
-    print("Encrypted Message (ASCII values): ", end="")
-    for value in ciphertext:
-        print(value, end=" ")
-    print()
-
-plaintext = input("Enter the plaintext: ")
-key = input("Enter the key: ")
-if len(key) == 0:
-    print("Error: Key cannot be empty!")
-    exit()
-
-ciphertext = simple_aes_encrypt(plaintext, key)
-print_ascii(ciphertext)
-decrypted_text = simple_aes_decrypt(ciphertext, key)
-print("Decrypted Message:", decrypted_text)
 ```
-
 # OUTPUT:
-<img width="1617" height="808" alt="Screenshot 2026-08-05 105811" src="https://github.com/user-attachments/assets/48ea1c83-b3e0-4360-9e5d-d15f987b19b1" />
-
+<img width="1448" height="861" alt="image" src="https://github.com/user-attachments/assets/19455990-7257-498d-9c02-b6c1837a52ea" />
 
 
 
 # RESULT:
-The program is successfully implemented and executed successfully
 
-
+The program is executed successfully.
